@@ -15,6 +15,7 @@ df = pd.read_csv("data_cleaned_version.csv")
 y = df["total_procedure_time_min"]
 
 FEATURES = [
+    # Original
     "age", "gender", "bmi", "nihss_score", "gcs_score",
     "systolic_bp", "blood_glucose", "oxygen_saturation",
     "inr", "hemoglobin", "creatinine", "clot_location",
@@ -23,8 +24,18 @@ FEATURES = [
     "hypertension", "diabetes", "atrial_fibrillation", "prior_stroke",
     "smoking_history", "onset_to_door_min", "door_to_ct_min",
     "ct_to_puncture_min", "tpa_given", "interventionist_experience_years",
+    # Engineered
+    "arrvial_imaging_efficiency", "brain_reserve", "age_adjusted_penumbra",
+    "age_weighted_core", "aspects_penumbra_interaction", "cerebral_oxygen_reserve",
+    "metabolic_infarct_burden", "hemorrhagic_risk", "oxygen_per_deficit",
+    "penumbra_salvageable_ratio", "salvageable_tissue", "clot_burden",
+    "weighted_mismatch", "oxygen_delivery", "metabolic_pressure_ratio",
+    "coagulation_renal", "hemo_renal_ratio", "comorbidity_count",
+    "age_severity", "age_burden", "cardiovascular_load",
+    "experience_adjusted_difficulty", "deficit_per_viable_brain",
+    "core_to_penumbra_ratio", "case_difficulty", "consciousness_deficit_ratio",
+    "bmi_severity", "collateral_penumbra",
 ]
-
 FEATURES = [c for c in FEATURES if c in df.columns]
 
 X = df[FEATURES]
@@ -62,3 +73,4 @@ safe       = np.maximum(predicted - 20, 10)
 results = patient_df[["patient_id"]].copy() if "patient_id" in patient_df.columns else pd.DataFrame()
 results["predicted_duration_min"] = predicted.round(1)
 results["safe_duration_min"]      = safe.round(1)
+results.to_csv("results.csv", index=False)
