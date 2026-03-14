@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import type { PatientData, PredictionOutput } from '../data/patients'
 import PatientStrip from './PatientStrip'
 import RiskChart from './RiskChart'
-import NeuronCounter from './NeuronCounter'
 import RiskFactors from './RiskFactors'
 
 interface Props {
@@ -76,8 +75,6 @@ export default function RiskDashboard({ patient, prediction, isDark, onNewPatien
             isDark={isDark}
           />
 
-          {/* Neuron counter */}
-          <NeuronCounter elapsedMin={Math.min(elapsedMin, 180)} isDark={isDark} />
         </div>
 
         {/* Right panel */}

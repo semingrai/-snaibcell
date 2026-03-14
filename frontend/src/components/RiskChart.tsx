@@ -25,7 +25,6 @@ function CustomTooltip({ active, label, isDark }: TooltipPayload & { isDark: boo
     Math.abs(b.minutes - minutes) < Math.abs(a.minutes - minutes) ? b : a
   )
   const badOutcome = nearest?.bad_outcome_prob ?? 0
-  const neuronsM = (minutes * 1_900_000 / 1_000_000).toFixed(1)
   const consequence = consequenceText(badOutcome)
 
   const bg     = isDark ? '#0F1929' : '#FFFFFF'
@@ -47,10 +46,6 @@ function CustomTooltip({ active, label, isDark }: TooltipPayload & { isDark: boo
         <span style={{ color: textM, fontSize: 10 }}>cursor</span>
       </div>
       <div style={{ height: 1, background: border, marginBottom: 8 }} />
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-        <span style={{ color: textM }}>NEURONS LOST</span>
-        <span style={{ color: '#F85149', fontWeight: 700, fontSize: 12 }}>{neuronsM}M</span>
-      </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
         <span style={{ color: textM }}>BAD OUTCOME</span>
         <span style={{ color: '#D29922', fontWeight: 700, fontSize: 12 }}>{badOutcome}%</span>
