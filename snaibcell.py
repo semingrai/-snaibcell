@@ -63,6 +63,23 @@ model = Pipeline(steps=[
 model.fit(X, y)
 
 
+# ── 1.5. Export ───────────────────────────────────────────────────────────────
+import pickle as _pickle, os as _os
+
+def predict_duration(patient_dict: dict) -> dict:
+    """Predict procedure duration for a single patient dict of raw features."""
+    row = pd.DataFrame([patient_dict])
+    row = row.reindex(columns=FEATURES)
+    pred = float(model.predict(row)[0])
+    safe = float(max(pred - 20, 10))
+    return {"predicted_duration_min": round(pred), "safe_duration_min": round(safe)}
+
+_model_save_path = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "snaibcell_model.pkl")
+with open(_model_save_path, "wb") as _fh:
+    _pickle.dump({"model": model, "features": FEATURES}, _fh)
+print(f"[snaibcell] Model saved → {_model_save_path}")
+
+
 # ── 2. Predict from upload ────────────────────────────────────────────────────
 # FILE FROM THE WEB
 patient_df = pd.read_csv()

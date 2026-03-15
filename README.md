@@ -1,4 +1,6 @@
-# 🧠 Snaibcell
+# 🧠 Snaibcell 
+#### S.N.A.I.B: Surgical Neural Analysis Biometrics
+
 **How long can a surgeon safely operate before brain tissue begins to deteriorate?**
 
 Snaibcell is a pre-operative clinical decision support tool that predicts the safe surgical window for stroke thrombectomy patients using machine learning. Built at RocketHacks 2026.

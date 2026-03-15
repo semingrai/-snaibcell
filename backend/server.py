@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
 from featherless import generate_communication, client as fl_client
+from snaibcell_bridge import predict_duration as _ml_predict_duration
 
 app = FastAPI()
 
@@ -259,6 +260,11 @@ Output ONLY a valid JSON object. No markdown, no explanation, no code fences.
         "atrial_fibrillation": gi("atrial_fibrillation", 0),
         "interventionist_experience_years": gf("interventionist_experience_years", 5.0),
     }
+
+    ml_durations = _ml_predict_duration(patient)
+    if ml_durations:
+        pred_duration = ml_durations["predicted_duration_min"]
+        safe_duration = ml_durations["safe_duration_min"]
 
     prediction = {
         "predicted_mrs": gi("predicted_mrs", 3),
