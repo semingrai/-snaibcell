@@ -8,6 +8,7 @@ export default defineConfig({
     proxy: {
       "/clinical-brief": "http://localhost:8000",
       "/chat": "http://localhost:8000",
+      "/triage": "http://localhost:8000",
     },
   },
 })
