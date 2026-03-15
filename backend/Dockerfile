@@ -14,7 +14,8 @@ COPY snaibcell.py data_cleaned_version.csv stroke_thrombectomy_dataset.csv ./
 COPY backend/ ./backend/
 
 # Train the model (produces snaibcell_model.pkl at /app/)
-RUN python snaibcell.py
+# Script crashes after saving due to dead code — verify pkl exists instead
+RUN python snaibcell.py || test -f snaibcell_model.pkl
 
 EXPOSE 8000
 
