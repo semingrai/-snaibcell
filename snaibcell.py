@@ -70,6 +70,7 @@ X_input    = patient_df.reindex(columns=FEATURES)
 predicted  = model.predict(X_input)
 safe       = np.maximum(predicted - 20, 10)
 
+
 results = patient_df[["patient_id"]].copy() if "patient_id" in patient_df.columns else pd.DataFrame()
 results["predicted_duration_min"] = predicted.round(1)
 results["safe_duration_min"]      = safe.round(1)

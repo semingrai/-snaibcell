@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import os
 import requests
 from concurrent.futures import ThreadPoolExecutor
-
+from test_data import test_patients, test_predictions
 load_dotenv()
 
 FEATHERLESS_API_KEY = os.getenv("FEATHERLESS_API_KEY")
@@ -95,3 +95,8 @@ CONSTRAINTS:
             "technical_brief": technical_future.result(),
             "family_letter": family_future.result()
         }
+    
+if __name__ == "__main__":
+    result = generate_communication(test_patients["critical"], test_predictions["critical"])
+    print(result["technical_brief"])
+    print(result["family_letter"])
