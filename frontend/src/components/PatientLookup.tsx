@@ -125,6 +125,9 @@ export default function PatientLookup({ isDark, onSelect, onTriage, extraPatient
       {/* ── Column 1: Patient Management ── */}
       <div className="w-full lg:w-64 flex-shrink-0 flex flex-col gap-3">
 
+        {/* Spacer to align Add Patient card with first patient card in column 2 */}
+        <div className="hidden lg:block h-5 flex-shrink-0" />
+
         {/* Add by ID */}
         <div className={`flex flex-col gap-4 rounded border p-5 ${surface} ${border}`}>
           <div>
