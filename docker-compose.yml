@@ -1,11 +1,24 @@
 version: "3.9"
 
 services:
-  app:
-    build: .
-    container_name: snaibcell
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: snaibcell-backend
+    restart: always
+    env_file:
+      - backend/.env
+    expose:
+      - "8000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: snaibcell-frontend
     restart: always
     ports:
-      - "3000:3000"
-    env_file:
-      - .env
+      - "80:80"
+    depends_on:
+      - backend
