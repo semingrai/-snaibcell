@@ -53,7 +53,7 @@ Brain tolerance · Oxygen/metabolic tolerance · Imaging/clot burden · Hemodyna
 | API | FastAPI |
 | AI Summarizer | Featherless.AI — OpenBioLLM-70B |
 | Deployment | Vultr VPS |
-| Frontend | React + Vite + TypeScript + Tailwind + Recharts |
+| Frontend | Pencil + React + Vite + TypeScript + Tailwind + Recharts |
 
 ---
 
