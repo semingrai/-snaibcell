@@ -16,7 +16,6 @@ Input a patient's pre-operative clinical profile. Snaibcell outputs:
 - **AI clinical brief** identifying abnormal values and key risk factors
 - **Urgency tier** (RED / YELLOW / GREEN)
 - **Outcome probability curve** showing how risk increases over time
-- **ElevenLabs voice briefing** for the OR team
 
 ---
 
@@ -51,17 +50,8 @@ Brain tolerance · Oxygen/metabolic tolerance · Imaging/clot burden · Hemodyna
 | ML | XGBoost, scikit-learn |
 | API | Flask |
 | AI Summarizer | Featherless.AI — OpenBioLLM-70B |
-| Voice | ElevenLabs TTS |
 | Deployment | Vultr VPS |
 | Frontend | React + Vite + Tailwind |
-
----
-
-## Sponsor Tracks
-- **Healthcare** — pre-operative clinical decision support for stroke surgery
-- **ElevenLabs** — voice briefing for OR team pre-surgery
-- **Vultr** — Flask API deployed with live endpoint
-- **Featherless.AI** — OpenBioLLM-70B clinical summarization and abnormal value detection
 
 ---
 
