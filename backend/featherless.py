@@ -1,36 +1,25 @@
 from dotenv import load_dotenv
 import os
-import requests
-from concurrent.futures import ThreadPoolExecutor
+from openai import OpenAI
 from test_data import test_patients, test_predictions
 load_dotenv()
 
-FEATHERLESS_API_KEY = os.getenv("FEATHERLESS_API_KEY")
+client = OpenAI(
+    base_url="https://api.featherless.ai/v1",
+    api_key=os.getenv("FEATHERLESS_API_KEY")
+)
 
 def call_featherless(prompt):
     try:
-        response = requests.post(
-            "https://api.featherless.ai/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {FEATHERLESS_API_KEY}",
-                "Content-Type": "application/json"
-            },
-            json={
-                "model": "moonshot-ai/Kimi-K2-Instruct",
-                "messages": [{"role": "user", "content": prompt}],
-                "max_tokens": 500,
-                "temperature": 0.3
-            },
-            timeout=30
+        response = client.chat.completions.create(
+            model="aaditya/Llama3-OpenBioLLM-70B",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=400,
+            temperature=0.3
         )
-        response.raise_for_status()
-        return response.json()['choices'][0]['message']['content']
-    except requests.exceptions.Timeout:
-        return "Error: Request timed out. Please retry."
-    except requests.exceptions.RequestException as e:
+        return response.choices[0].message.content
+    except Exception as e:
         return f"Error: API call failed — {str(e)}"
-    except (KeyError, IndexError):
-        return "Error: Unexpected response format from model."
 
 def generate_communication(patient_data, prediction_output):
 
@@ -86,15 +75,10 @@ CONSTRAINTS:
 - Maximum 150 words total
 - End with one sentence the family can hold onto"""
 
-    # Run both calls in parallel
-    with ThreadPoolExecutor(max_workers=2) as executor:
-        technical_future = executor.submit(call_featherless, technical_prompt)
-        family_future = executor.submit(call_featherless, family_prompt)
-        
-        return {
-            "technical_brief": technical_future.result(),
-            "family_letter": family_future.result()
-        }
+    return {
+        "technical_brief": call_featherless(technical_prompt),
+        "family_letter": call_featherless(family_prompt),
+    }
     
 if __name__ == "__main__":
     result = generate_communication(test_patients["critical"], test_predictions["critical"])
